@@ -8,4 +8,10 @@
 (define (cube x)
   (* x x x))
 
+(define (double x)
+  (* 2 x))
+
+(define (halve x)
+  (/ x 2))
+
 (provide (all-defined-out))
