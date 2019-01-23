@@ -14,4 +14,9 @@
 (define (halve x)
   (/ x 2))
 
+(define runtime current-milliseconds)
+
+(define true #t)
+(define false #f)
+
 (provide (all-defined-out))
