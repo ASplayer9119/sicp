@@ -19,4 +19,6 @@
 (define true #t)
 (define false #f)
 
+(define (inc x) (+ x 1))
+
 (provide (all-defined-out))
