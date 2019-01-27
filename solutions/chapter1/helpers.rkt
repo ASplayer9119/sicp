@@ -23,4 +23,7 @@
 
 (define (identity x) x)
 
+(define (average x y)
+  (/ (+ x y) 2.0))
+
 (provide (all-defined-out))
