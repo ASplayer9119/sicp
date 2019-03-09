@@ -1,10 +1,6 @@
 #lang racket/base
 
-(define (accumulate op initial sequence)
-  (if (null? sequence)
-      initial
-      (op (car sequence)
-          (accumulate op initial (cdr sequence)))))
+(require "helpers.rkt")
 
 (define (map p sequence)
   (accumulate (lambda (x y) (cons (p x) y)) null sequence))

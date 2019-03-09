@@ -1,0 +1,9 @@
+#lang racket/base
+
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (accumulate op initial (cdr sequence)))))
+
+(provide (all-defined-out))
