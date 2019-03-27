@@ -1,0 +1,31 @@
+#lang racket/base
+
+(define (make-account balance password)
+  (define (withdraw amount)
+    (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Insufficient funds"))
+  (define (deposit amount)
+    (set! balance (+ balance amount))
+    balance)
+
+  (define incorrect-call-count 0)
+  (define (incorrect-password amount)
+    (begin (set! incorrect-call-count (+ incorrect-call-count 1))
+           (if (> incorrect-call-count 7)
+               (call-the-cops)
+               "Incorrect password")))
+  (define (reset-incorrect-counter)
+    (set! incorrect-call-count 0))
+  (define (call-the-cops)
+    "The police are on their way!")
+
+  (define (dispatch try-password m)
+    (cond ((not (eq? try-password password)) incorrect-password)
+          ((eq? m 'withdraw) (reset-incorrect-counter) withdraw)
+          ((eq? m 'deposit) (reset-incorrect-counter) deposit)
+          (else (error "Unknown request: MAKE-ACCOUNT" m))))
+  dispatch)
+
+(provide make-account)
