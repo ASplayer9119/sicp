@@ -41,7 +41,4 @@
                   1))))
   (traverse x))
 
-(correct-count-pairs e1) ; 2
-(correct-count-pairs e2) ; 4
-(correct-count-pairs e3) ; 4
-(correct-count-pairs e4) ; 1
+(#%provide (all-defined))
