@@ -20,8 +20,4 @@
           (else (iter (cdr ls) (+ 1 i)))))
   (iter x 0))
 
-(define l (list 1 2 3))
-(has-cycle? l)
-
-(append! l l)
-(has-cycle? l)
+(#%provide (all-defined))
