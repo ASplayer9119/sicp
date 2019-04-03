@@ -1,0 +1,68 @@
+#lang sicp
+
+(define (make-queue)
+  (let ((front-ptr '())
+        (rear-ptr '()))
+    (define (set-front-ptr! item)
+      (set! front-ptr item))
+    (define (set-rear-ptr! item)
+      (set! rear-ptr item))
+
+    (define (dispatch m)
+      (cond ((eq? m 'front-ptr) front-ptr)
+            ((eq? m 'rear-ptr) rear-ptr)
+            ((eq? m 'set-front-ptr!) set-front-ptr!)
+            ((eq? m 'set-rear-ptr!) set-rear-ptr!)
+            (else (error "MAKE-QUEUE unknown operation" m))))
+    dispatch))
+
+(define (front-ptr queue) (queue 'front-ptr))
+(define (rear-ptr queue) (queue 'rear-ptr))
+
+(define (set-front-ptr! queue item)
+  ((queue 'set-front-ptr!) item))
+(define (set-rear-ptr! queue item)
+  ((queue 'set-rear-ptr!) item))
+
+; because of abstraction barriers other operations will remain the same
+(define (empty-queue? queue)
+  (null? (front-ptr queue)))
+
+(define (front-queue queue)
+  (if (empty-queue? queue)
+      (error "FRONT called with an empty queue" queue)
+      (car (front-ptr queue))))
+
+(define (insert-queue! queue item)
+  (let ((new-pair (cons item '())))
+    (cond ((empty-queue? queue)
+           (set-front-ptr! queue new-pair)
+           (set-rear-ptr! queue new-pair)
+           queue)
+          (else (set-cdr! (rear-ptr queue) new-pair)
+                (set-rear-ptr! queue new-pair)
+                queue))))
+
+(define (delete-queue! queue)
+  (cond ((empty-queue? queue)
+         (error "DELETE! called with an empty queue" queue))
+        (else (set-front-ptr! queue (cdr (front-ptr queue)))
+              queue)))
+
+(define (print-queue queue)
+  (define (iter x)
+    (cond ((null? x) (display "]") (newline))
+          (else (display (car x))
+                (if (null? (cdr x))
+                    (display "")
+                    (display ","))
+                (iter (cdr x)))))
+  (display "[")
+  (iter (front-ptr queue)))
+
+(define q1 (make-queue))
+(print-queue q1)
+(print-queue (insert-queue! q1 'a))
+(print-queue (insert-queue! q1 'b))
+(print-queue (delete-queue! q1))
+(print-queue (delete-queue! q1))
