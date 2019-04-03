@@ -19,8 +19,4 @@
                        (traverse (cdr x))))))
   (traverse x))
 
-(define l (list 1 2 3))
-(has-cycle? l)
-
-(append! l l)
-(has-cycle? l)
+(#%provide (all-defined))
