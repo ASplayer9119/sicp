@@ -40,4 +40,8 @@
                         (stream-cdr stream))))
         (else (stream-filter pred (stream-cdr stream)))))
 
+(define (integers-starting-from n)
+  (cons-stream n (integers-starting-from (+ n 1))))
+(define integers (integers-starting-from 1))
+
 (#%provide (all-defined))
